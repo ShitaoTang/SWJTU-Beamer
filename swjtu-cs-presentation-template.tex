@@ -1,0 +1,281 @@
+\documentclass[12pt, aspectratio=169]{beamer}
+
+% SWJTU CS theme
+\usetheme{swjtucs}
+% Packages for additional features
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{subcaption}
+\usepackage{caption}
+
+\usepackage{code-style}
+
+\definecolor{red}{RGB}{220,20,60}  % A vibrant red
+\definecolor{blue}{RGB}{30,144,255} % A bright blue
+
+% Ensure numbered captions in Beamer
+\setbeamertemplate{caption}[numbered]
+
+% Caption setup for numbered listings
+\DeclareCaptionType{codelisting}[Listing]{}
+
+% For hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+\title{Title goes here and it can be quite long that it will wrap onto a 2nd and 3rd line}
+\author{Shitao Tang}
+\institute{Southwest Jiaotong University, China}
+\email{tst17@my.swjtu.edu.cn}
+
+\begin{document}
+    % Title page
+    \begin{frame}
+        \titlepage
+    \end{frame}
+
+    % Frame 1: Ordinary text, italics, bold, texttt, red/blue fonts, footnote
+    \begin{frame}{Basic Text Formatting}
+        Ordinary text is straightforward in Beamer.
+
+        \emph{This is italic text} (using \texttt{\textbackslash emph} or \texttt{\textbackslash itshape}).
+
+        \textbf{This is bold text} (using \texttt{\textbackslash textbf}).
+
+        \texttt{This is monospace text} (using \texttt{\textbackslash texttt}).
+
+        \textcolor{red}{This text is in red} and \textcolor{blue}{this is in blue}.
+
+        A footnote example\footnote{This is a sample footnote in Beamer.}.
+    \end{frame}
+
+    % Frame 2: Bullet points (itemize/enumerate)
+    \begin{frame}{Bullet Points and Lists}
+        \begin{itemize}
+            \item First bullet point: Basic itemize environment.
+            \item Second bullet point: Supports nesting.
+                \begin{itemize}
+                    \item Nested item.
+                \end{itemize}
+            \item Third: With emphasis \emph{here}.
+        \end{itemize}
+
+        For numbered lists:
+        \begin{enumerate}
+            \item First step.
+            \item Second step.
+        \end{enumerate}
+    \end{frame}
+
+    % Frame 3: Math formulas (numbered and unnumbered)
+    \begin{frame}{Mathematical Formulas}
+        Unnumbered inline math: $E = mc^2$.
+
+        Display math without numbering:
+        \begin{equation*}
+            \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
+        \end{equation*}
+
+        Numbered equation:
+        \begin{equation}
+            \nabla \cdot \mathbf{E} = \frac{\rho}{\epsilon_0}
+            \label{eq:gauss}
+        \end{equation}
+
+        Reference: See Equation~\ref{eq:gauss}.
+    \end{frame}
+
+    % Frame 4: Single image
+    \begin{frame}{Single Image}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\textwidth]{example-image-a} % Replace with your image path
+            \caption{A sample image centered on the slide.}
+            \label{fig:sample}
+        \end{figure}
+    \end{frame}
+
+    % Frame 5: Two images side-by-side
+    \begin{frame}{Two Images Side-by-Side}
+        \begin{figure}
+            \centering
+            \begin{subfigure}{0.48\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{example-image-b}
+                \caption{First image.}
+                \label{fig:two-a}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{example-image-c}
+                \caption{Second image.}
+                \label{fig:two-b}
+            \end{subfigure}
+            \caption{Two images side-by-side.}
+            \label{fig:two}
+        \end{figure}
+    \end{frame}
+
+    % Frame 6: Three images side-by-side
+    \begin{frame}{Three Images Side-by-Side}
+        \begin{figure}
+            \centering
+            \begin{subfigure}{0.31\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{example-image}
+                \caption{First image.}
+                \label{fig:three-a}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.31\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{example-image-a}
+                \caption{Second image.}
+                \label{fig:three-b}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.31\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{example-image-b}
+                \caption{Third image.}
+                \label{fig:three-c}
+            \end{subfigure}
+            \caption{Three images side-by-side.}
+            \label{fig:three}
+        \end{figure}
+    \end{frame}
+
+    % Frame 7: Left image, right text
+    \begin{frame}{Image on Left, Text on Right}
+        \begin{columns}[T]
+            \begin{column}{0.4\textwidth}
+                \begin{figure}
+                    \centering
+                    \includegraphics[width=\textwidth]{example-image}
+                    \caption{Sample image.}
+                    \label{fig:left}
+                \end{figure}
+            \end{column}
+            \begin{column}{0.6\textwidth}
+                This is text on the right side, aligned with the image on the left.
+                It can span multiple lines and include lists:
+                \begin{itemize}
+                    \item Point one.
+                    \item Point two.
+                \end{itemize}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+    % Frame 8: Python code segment
+    \begin{frame}[fragile]{Python Code Segment}
+        \begin{codelisting}
+            \begin{lstlisting}[language=Python]
+def hello_world(name):
+    """Greet someone."""
+    print(f"Hello, {name}!")
+    
+    if name == "World":
+        return "Global greeting"
+    return "Personal greeting"
+
+hello_world("SWJTU")
+            \end{lstlisting}
+            \caption{Hello World in Python}
+            \label{lst:python}
+        \end{codelisting}
+    \end{frame}
+
+    % Frame 9: C code segment
+    \begin{frame}[fragile]{C Code Segment}
+        \begin{codelisting}
+            \begin{lstlisting}[language=C]
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+            \end{lstlisting}
+            \caption{Hello World in C}
+            \label{lst:c}
+        \end{codelisting}
+    \end{frame}
+
+    % Frame 10: Table
+    \begin{frame}{Tables}
+        A simple table using booktabs:
+        \begin{table}
+            \centering
+            \begin{tabular}{lcc}
+                \toprule
+                Item & Price & Quantity \\
+                \midrule
+                Widget A & \$10 & 5 \\
+                Widget B & \$15 & 3 \\
+                \bottomrule
+            \end{tabular}
+            \caption{Sample inventory table.}
+            \label{tab:inventory}
+        \end{table}
+
+        Reference: See Table~\ref{tab:inventory}.
+    \end{frame}
+
+    % Frame 11: Hyperlinks and references
+    \begin{frame}{Hyperlinks and References}
+        \begin{itemize}
+            \item Link to a URL: \href{https://www.latex-project.org/}{LaTeX Project}.
+            \item Internal references:
+                \begin{itemize}
+                    \item Equation~\ref{eq:gauss}
+                    \item Figure~\ref{fig:sample}
+                    \item Figure~\ref{fig:two} (subfigures \ref{fig:two-a} and \ref{fig:two-b})
+                    \item Figure~\ref{fig:three} (subfigures \ref{fig:three-a}, \ref{fig:three-b}, \ref{fig:three-c})
+                    \item Figure~\ref{fig:left}
+                    \item Table~\ref{tab:inventory}
+                    \item Listing~\ref{lst:python}
+                    \item Listing~\ref{lst:c}
+                \end{itemize}
+            \item Alert: \alert{This is highlighted text} for emphasis.
+        \end{itemize}
+
+        Block example:
+        \begin{block}{Key Insight}
+            Beamer themes like yours can be customized extensively.
+        \end{block}
+    \end{frame}
+
+    % Frame 12: Additional elements (blocks, theorems, etc.)
+    \begin{frame}{Additional Features}
+        Theorem-like environment (requires amsthm, but using Beamer's theorem):
+        \begin{theorem}
+            Pythagorean theorem: $a^2 + b^2 = c^2$.
+        \end{theorem}
+
+        \vspace{1em}
+
+        Example block:
+        \begin{example}
+            For $x = 3$, $f(x) = x^2 = 9$.
+        \end{example}
+
+        \vspace{1em}
+
+        Alert block:
+        \begin{alertblock}{Warning}
+            Always validate inputs!
+        \end{alertblock}
+    \end{frame}
+
+\end{document}

@@ -1,0 +1,113 @@
+%% Department of Computer Science and Technology, SWJTU
+%% Latex Beamer Presentation Theme
+%%
+%% v1.0: Shitao Tang (based on Oxford Mathematical Institute Beamer Template)
+
+% Use infolines as base
+\useoutertheme{infolines}
+
+% tweak colors for SWJTU Blue
+\definecolor{swjtublue}{RGB}{51, 117, 174}
+\usecolortheme[named=swjtublue]{structure}
+
+% turn off the navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% set font to Helvetica
+\RequirePackage{fontspec}
+\setsansfont{Helvetica Neue}
+\setmainfont{Helvetica Neue Light}
+\renewcommand{\familydefault}{\sfdefault}
+\newfontfamily\helvlight{Helvetica Neue Light}
+
+\RequirePackage{hyperref}
+
+% define useful layout lengths
+\newlength{\textmargin}
+\setlength{\textmargin}{10mm} % Left and right margin for main context
+\setbeamersize{text margin left=\textmargin, text margin right=\textmargin}
+\newlength{\titlehmargin}
+\setlength{\titlehmargin}{8mm} % Left and right margin for title and footline
+\newlength{\titlevmargin}
+\setlength{\titlevmargin}{1mm} % Top and bottom margin for title and footline
+\newlength{\fullpagewidth}
+\setlength{\fullpagewidth}{\dimexpr\textmargin + \textwidth +\textmargin\relax}
+
+% Calculate width from heights for the logos
+\newlength{\swjtulogowidth}
+\setlength{\swjtulogowidth}{\dimexpr 8mm * 1486 / 459 \relax}
+\newlength{\cslogowidth}
+\setlength{\cslogowidth}{\dimexpr 8mm * 7153 / 933 \relax}
+
+\providecommand{\email}[1]{\def\insertemail{#1}}
+
+%% Title slide formatting %%
+\setbeamertemplate{title page}{
+    \begin{center}
+        \vfill
+
+        % Title
+        \begin{minipage}{0.8\textwidth}
+            \usebeamerfont{title}\LARGE\centering\inserttitle\par
+        \end{minipage}
+
+        \vspace{5mm}
+        {\color{gray}\rule{0.95\textwidth}{0.3pt}\par}
+        \vspace{5mm}
+
+        % Author, Email, School (centered + gray)
+        \begin{minipage}{0.8\textwidth}
+            \centering
+            {\color{gray}\helvlight\usebeamerfont{author}\small\insertauthor\par}
+            \vspace{1.5mm}
+            {\color{gray}\helvlight\usebeamerfont{email}\footnotesize\underline{\href{mailto:\insertemail}{\insertemail}}\par}
+            \vspace{1.5mm}
+            {\color{gray}\helvlight\usebeamerfont{institute}\small\itshape\insertinstitute\par}
+        \end{minipage}
+
+        \vspace{10mm}
+
+        % Logos
+        % \includegraphics[width=1.3\cslogowidth]{imgs/cs-logo.png}  \hspace{5mm}%
+        \includegraphics[width=1.3\swjtulogowidth]{imgs/swjtu-horizontal.pdf}
+    \end{center}
+}
+
+%% General slide header %%
+\setbeamertemplate{frametitle}{%
+    \rlap{%
+        \begin{beamercolorbox}[sep=\titlevmargin,left,wd=\dimexpr\fullpagewidth-\titlehmargin*2+\titlevmargin*2\relax]{frametitle}%
+            \begin{minipage}{\dimexpr\fullpagewidth-\swjtulogowidth-\titlehmargin*3-1mm\relax}%
+                \strut\insertframetitle\strut\par%
+            \end{minipage}%
+            \hspace{\titlehmargin}%
+            \begin{minipage}{\dimexpr\swjtulogowidth+1mm\relax}%
+                \hfill
+                \vspace*{-2mm}
+                \includegraphics[width=\swjtulogowidth]{imgs/swjtu-horizontal.pdf}%
+            \end{minipage}%
+        \end{beamercolorbox}%
+    }%
+    
+    \vspace{\dimexpr-\baselineskip+1ex\relax}%
+    % |----textmargin----|------textwidth------|----textmargin----|
+    % |-----------------------fullpagewidth-----------------------|
+    % |--titlehmargin--|-------------------------|--titlehmargin--|
+    \noindent\rlap{\hspace{-\textmargin}\hspace{\titlehmargin}\rule{\dimexpr\fullpagewidth-\titlehmargin*2\relax}{0.4pt}}%
+    \vspace{-0.6ex}%
+}
+
+%% General slide footer %%
+\setbeamertemplate{footline}{%
+    \ifnum\insertpagenumber>1
+        \vspace*{0pt} % reset vertical mode
+        \leavevmode%
+        
+        \rlap{%
+            \hspace*{\dimexpr\fullpagewidth-\titlehmargin\relax}%
+            \raisebox{3mm}[0pt][0pt]{%
+                {\color{\ifnum\insertframenumber=\inserttotalframenumber black\else gray\fi}\helvlight\usebeamerfont{page number in head/foot}\scriptsize\insertframenumber}%
+            }%
+        }%
+    \fi
+}

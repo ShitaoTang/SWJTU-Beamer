@@ -1,0 +1,105 @@
+% code-style.sty
+% Provides code styling for Python, C/C++, Rust using Fira Code font
+% and VSCode Default Light+ (Modern Light) theme colors.
+% Usage: \usepackage{code-style}
+% Then use \lstinputlisting[language=Python]{file.py} or \begin{lstlisting}[language=Rust]...\end{lstlisting}
+
+\ProvidesPackage{code-style}[2025/10/03 Code styles for Python, C/C++, Rust with Fira Code and VSCode Light+ colors]
+
+\RequirePackage{fontspec}
+\setmonofont{Fira Code}[Scale=MatchLowercase]
+
+\RequirePackage{xcolor}
+\RequirePackage{listings}
+
+% VSCode Default Light+ (Modern Light) inspired colors
+\definecolor{commentgreen}{HTML}{6A9955}      % Comments: #6A9955
+\definecolor{keywordblue}{HTML}{0000FF}        % Keywords: #0000FF
+\definecolor{stringred}{HTML}{A31515}          % Strings: #A31515
+\definecolor{numbergreen}{HTML}{098658}        % Numbers: #098658 (adjusted for light)
+\definecolor{functionbrown}{HTML}{AF00DB}      % Functions: #AF00DB (purple-ish for light)
+\definecolor{typecyan}{HTML}{267F99}           % Types: #267F99
+\definecolor{operatorblue}{HTML}{0000FF}       % Operators: #0000FF
+\definecolor{backgroundwhite}{HTML}{FFFFFF}    % Background: #FFFFFF
+\definecolor{foregroundgray}{HTML}{1E1E1E}     % Default text: #1E1E1E (dark gray for light theme)
+
+% Global settings for all code listings
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{backgroundwhite},
+  keywordstyle=\color{keywordblue}\bfseries,
+  commentstyle=\color{commentgreen}\itshape,
+  stringstyle=\color{stringred},
+  numberstyle=\color{numbergreen},
+  identifierstyle=\color{foregroundgray},
+  emphstyle={\color{functionbrown}\bfseries},  % For function names
+  literate={+}{{{\color{operatorblue}+}}}1
+           {=}{{{\color{operatorblue}=}}}1
+           {/}{{{\color{operatorblue}/}}}1
+           {*}{{{\color{operatorblue}*}}}1
+           {!}{{{\color{operatorblue}!}}}1
+           {<}{{{\color{operatorblue}<}}}1
+           {>}{{{\color{operatorblue}>}}}1
+           {-}{{{\color{operatorblue}-}}}1,
+  frame=single,
+  frameround=tttt,
+  rulecolor=\color{gray!30},
+  breaklines=true,
+  breakatwhitespace=true,
+  showstringspaces=false,
+  tabsize=4,
+  keepspaces=true,
+  numbers=left,
+  numberstyle=\tiny\color{gray!50},
+  stepnumber=1,
+  numbersep=8pt,
+  xleftmargin=2em,
+  captionpos=b,
+  escapeinside={\%*}{*)},
+  inputencoding=utf8,
+  extendedchars=true
+}
+
+% Python language definition (extends built-in)
+\lstdefinelanguage{Python}{
+  keywords={False, None, True, and, as, assert, async, await, break, class, continue, def, del, elif, else, except, finally, for, from, global, if, import, in, is, lambda, nonlocal, not, or, pass, raise, return, try, while, with, yield},
+  keywordstyle=\color{keywordblue}\bfseries,
+  morekeywords=[2]{__init__, self, print, len, range, list, dict, set, tuple, str, int, float, bool},
+  emph={__init__, self, print, len, range, list, dict, set, tuple, str, int, float, bool},
+  morecomment=[l]{\#},
+  morestring=[b]',
+  morestring=[b]",
+  sensitive=true
+}
+
+% C/C++ language definition (extends built-in C)
+\lstdefinelanguage{Cpp}{
+  language=C,
+  morekeywords={alignas, alignof, and, and_eq, asm, auto, bitand, bitor, bool, break, case, catch, char, char16_t, char32_t, class, compl, concept, const, consteval, constexpr, constinit, const_cast, continue, decltype, default, delete, do, double, dynamic_cast, else, enum, explicit, export, extern, false, float, for, friend, goto, if, inline, int, long, mutable, namespace, new, noexcept, not, not_eq, nullptr, operator, or, or_eq, private, protected, public, register, reinterpret_cast, requires, return, short, signed, sizeof, static, static_assert, static_cast, struct, switch, template, this, thread_local, throw, true, try, typedef, typeid, typename, union, unsigned, using, virtual, void, volatile, wchar_t, while, xor, xor_eq},
+  morekeywords=[2]{printf, scanf, stdio_h, stdlib_h, string_h, math_h, iostream, vector, string, algorithm, cout, cin, endl, namespace, std},
+  emph={printf, scanf, cout, cin, endl},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  sensitive=true
+}
+
+% Rust language definition (custom)
+\lstdefinelanguage{Rust}{
+  keywords={as, break, const, continue, crate, else, enum, extern, false, fn, for, if, impl, in, let, loop, match, mod, move, mut, pub, ref, return, self, Self, static, struct, trait, true, type, unsafe, use, while, where, dyn, i8, i16, i32, i64, i128, isize, u8, u16, u32, u64, u128, usize, f32, f64, str, char, bool},
+  keywordstyle=\color{keywordblue}\bfseries,
+  morekeywords=[2]{Option, Result, Vec, String, println, format, vec, match, Result, Ok, Err, Some, None, main, fn, let, mut, ref, i32, f64, true, false, pub, use, mod, crate, extern, enum, struct, impl, trait, type, const, static, unsafe, as, box, continue, break, loop, while, if, else, match, for, in, return, yield},
+  emph={Option, Result, Vec, String, println, format, vec, main},
+  morekeywords=[3]{print, panic, assert, debug_assert, unreachable, todo},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]{r\#},
+  sensitive=true
+}
+
+% Default to Python if no language specified (optional)
+\renewcommand{\lstlistingname}{Code}
+\lstset{language=Python}  % Uncomment if you want default language
