@@ -13,11 +13,29 @@
 % turn off the navigation symbols
 \setbeamertemplate{navigation symbols}{}
 
-% set font to Helvetica
 \RequirePackage{fontspec}
-\setsansfont{Helvetica Neue}
-\setmainfont{Helvetica Neue Light}
-\renewcommand{\familydefault}{\sfdefault}
+\RequirePackage{unicode-math}
+\IfFileExists{/System/Library/Fonts/Times.ttc}{
+    \setmainfont{Times}
+    \setsansfont{Helvetica Neue}
+}{}
+\unimathsetup{
+    math-style=ISO,
+    bold-style=ISO,
+}
+\IfFontExistsTF{xits-math.otf}{
+    \setmathfont[
+        Extension    = .otf,
+        BoldFont     = *-bold,
+        StylisticSet = 8,
+    ]{xits-math}
+}{
+    \setmathfont[
+        Extension    = .otf,
+        BoldFont     = XITSMath-Bold,
+        StylisticSet = 8,
+    ]{XITSMath-Regular}
+}
 \newfontfamily\helvlight{Helvetica Neue Light}
 
 \RequirePackage{hyperref}

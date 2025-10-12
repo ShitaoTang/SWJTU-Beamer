@@ -8,5 +8,6 @@
 *.toc
 *.vrb
 *.pyg
+*.pdf
 
 .DS_Store
